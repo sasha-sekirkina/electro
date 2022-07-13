@@ -2,6 +2,7 @@ from django.db import models
 
 
 # from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 
 def get_product_image_path(instance, filename):
@@ -50,8 +51,8 @@ class Producer(models.Model):
         verbose_name = 'Производитель(я)'
         verbose_name_plural = 'Производители'
 
-    # def get_absolute_url(self):
-    #     return reverse_lazy('producer', kwargs={'producer_id': self.pk})
+    def get_absolute_url(self):
+        return reverse_lazy('producer', kwargs={'slug': self.slug})
 
 
 class Category(models.Model):
@@ -65,5 +66,5 @@ class Category(models.Model):
         verbose_name = 'Категория(ю)'
         verbose_name_plural = 'Категории'
 
-    # def get_absolute_url(self):
-    #     return reverse_lazy('category', kwargs={'category_id': self.pk})
+    def get_absolute_url(self):
+        return reverse('bycategory', kwargs={'slug': self.slug})
