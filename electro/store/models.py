@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # from django.urls import reverse_lazy
 from django.urls import reverse_lazy, reverse
 
@@ -20,6 +19,7 @@ class Product(models.Model):
     description = models.TextField(max_length=420, blank=True)
     photo = models.ImageField(upload_to=get_product_image_path, verbose_name='Фото')
     price = models.IntegerField(verbose_name='Цена')
+    old_price = models.IntegerField(verbose_name='Старая цена')
     is_available = models.BooleanField(default=True, verbose_name='Наличие')
     amount = models.IntegerField(verbose_name='Количество')
     category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name='Категория')
@@ -52,7 +52,7 @@ class Producer(models.Model):
         verbose_name_plural = 'Производители'
 
     def get_absolute_url(self):
-        return reverse_lazy('producer', kwargs={'slug': self.slug})
+        return reverse_lazy('byproducer', kwargs={'slug': self.slug})
 
 
 class Category(models.Model):

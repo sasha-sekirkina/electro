@@ -1,3 +1,4 @@
+from django.db.models import F
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
@@ -10,7 +11,15 @@ from .models import Product, Producer, Category
 
 
 def index(request):
-    return render(request, 'store/index.html')
+    products = Product.objects.filter(old_price__gt=F('price')).select_related('producer')
+    producers = Producer.objects.all()
+    context = {
+        'special_title' : 'Специальное предложение',
+        'sale_badge': 'Скидки',
+        'products': products,
+        'producers': producers,
+    }
+    return render(request, 'store/index.html', context=context)
 
 
 class ProductsByCategory(ListView):
@@ -27,3 +36,7 @@ class ProductsByCategory(ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.get(slug=self.kwargs['slug'])
         return context
+
+
+class ProductsByProducer(ListView):
+    pass
