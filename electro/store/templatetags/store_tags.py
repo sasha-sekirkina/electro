@@ -1,6 +1,6 @@
 from django import template
 
-from store.models import Category, Producer, Product
+from store.models import Category, Producer, Product, StoreInfo
 from django.db.models import Count, F
 
 
@@ -12,3 +12,6 @@ def get_categories():
     return Category.objects.filter().annotate(cnt=Count('products', filter=F('products__is_available'))).filter(cnt__gt=0)
 
 
+@register.simple_tag()
+def get_store_info():
+    return StoreInfo.objects.get(pk=1)

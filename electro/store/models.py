@@ -68,3 +68,27 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse('bycategory', kwargs={'slug': self.slug})
+
+
+
+class StoreInfo(models.Model):
+    logo = models.ImageField(max_length=250)
+
+    name = models.CharField(max_length=150)
+    address = models.CharField(max_length=150)
+    phone = models.CharField(max_length=150)
+    short_description = models.CharField(max_length=250)
+    email = models.EmailField(max_length=150)
+
+    about_us = models.TextField(max_length=2500)
+    privacy_policy = models.TextField(max_length=2500)
+    orders_and_returns = models.TextField(max_length=2500)
+    terms_and_conditions = models.TextField(max_length=2500)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Информация о магазине'
+        verbose_name_plural = 'Информация о магазине'
+
