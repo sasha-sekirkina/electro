@@ -42,9 +42,9 @@ def terms_and_conditions(request):
 
 class ProductsByCategory(ListView):
     model = Product
-    template_name = 'store/category_list.html'
+    template_name = 'store/products_list.html'
     context_object_name = 'products'
-    paginate_by = 4
+    paginate_by = 3
 
     def get_queryset(self):
         return Product.objects.filter(category__slug=self.kwargs['slug'], is_available=True).select_related(
@@ -57,4 +57,16 @@ class ProductsByCategory(ListView):
 
 
 class ProductsByProducer(ListView):
-    pass
+    model = Product
+    template_name = 'store/products_list.html'
+    context_object_name = 'products'
+    paginate_by = 3
+
+    def get_queryset(self):
+        return Product.objects.filter(producer__slug=self.kwargs['slug'], is_available=True).select_related(
+            'producer')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['producer'] = Producer.objects.get(slug=self.kwargs['slug'])
+        return context

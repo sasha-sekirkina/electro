@@ -2188,3 +2188,28 @@ textarea.input {
     margin-top: 10px;
   }
 }
+
+.my_button {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: #D10024;
+  border: 2px solid #D10024;
+  border-radius: 40px;
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #FFF;
+}
+
+
+.my_button:hover {
+  background-color: #FFF;
+  color: #D10024;
+  border-color: #D10024;
+}
+

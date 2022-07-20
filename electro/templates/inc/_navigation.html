@@ -1,6 +1,5 @@
 {% load store_tags %}
 
-<!-- NAVIGATION -->
 <nav id="navigation">
     <!-- container -->
     <div class="container">
@@ -8,6 +7,7 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
+                
                 {% if request.path == '/' %}
                 <li class="active"><a href="{% url 'home' %}">Главная</a></li>
                 {% else %}
@@ -15,7 +15,6 @@
                 {% endif %}
 
                 {% get_categories as categories %}
-
                 {% for cat in categories %}
                 {% if request.path == cat.get_absolute_url %}
                 <li class="active"><a href="{{ cat.get_absolute_url }}"> {{ cat.name }}</a></li>
@@ -31,4 +30,3 @@
     </div>
     <!-- /container -->
 </nav>
-<!-- /NAVIGATION -->

@@ -15,3 +15,7 @@ def get_categories():
 @register.simple_tag()
 def get_store_info():
     return StoreInfo.objects.get(pk=1)
+
+@register.simple_tag()
+def get_producers():
+    return Producer.objects.filter().annotate(cnt=Count('products', filter=F('products__is_available'))).filter(cnt__gt=0)
