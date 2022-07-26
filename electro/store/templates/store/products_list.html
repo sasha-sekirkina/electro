@@ -1,165 +1,56 @@
 {% extends 'base.html' %}
-{% load store_tags %}
+{% load static %}
 
 {% block content %}
-
-<!-- SECTION -->
-<div class="section">
-    <!-- container -->
-    <div class="container">
-        <!-- row -->
-        <div class="row">
-            <!-- ASIDE -->
-            <div id="aside" class="col-md-3">
-
-                <!-- aside Widget -->
-                {% get_categories as categories %}
-                <div class="aside">
-                    <h3 class="aside-title">Категории:</h3>
-                    {% for cat in categories %}
-                    <div class="checkbox-filter">
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="{{ cat.id }}">
-                            <label for="{{ cat.id }}">
-                                <span></span>
-                                {{ cat.name }}
-                            </label>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                <!-- /aside Widget -->
-                
-                <!-- aside Widget -->
-                {% get_producers as producers %}
-                <div class="aside">
-                    <h3 class="aside-title">производители</h3>
-                    {% for prod in producers %}
-                    <div class="checkbox-filter">
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="{{ prod.id }}">
-                            <label for="{{ prod.id }}">
-                                <span></span>
-                                {{ prod.name }}
-                            </label>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-                <!-- /aside Widget -->
-
-                <!-- aside Widget -->
-                <div class="aside">
-                    <h3 class="aside-title">Дополнительно</h3>
-                    <div class="checkbox-filter">
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="special_offer">
-                            <label for="special_offer" style="font-size: 15px;">
-                                <span></span>
-                                Только со скидками
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <!-- /aside Widget -->
-
-                <br>
-                <button class="my_button"> Применить </button>
-            </div>
-
-            <!-- STORE -->
-            <div id="store" class="col-md-9">
-                <!-- store top filter -->
-                <div class="store-filter clearfix">
-                    <div class="store-sort">
-                        <label>
-                            Sort By:
-                            <select class="input-select">
-                                <option value="0">Popular</option>
-                                <option value="1">Position</option>
-                            </select>
-                        </label>
-
-                        <label>
-                            Show:
-                            <select class="input-select">
-                                <option value="0">20</option>
-                                <option value="1">50</option>
-                            </select>
-                        </label>
-                    </div>
-                    <ul class="store-grid">
-                        <li class="active"><i class="fa fa-th"></i></li>
-                        <li><a href="#"><i class="fa fa-th-list"></i></a></li>
-                    </ul>
-                </div>
-                <!-- /store top filter -->
-
-                <!-- store products -->
-                <div class="row">
-                    <!-- product -->
-                    {% for item in products %}
-                    <div class="col-md-4 col-xs-6">
-                        <div class="product">
-                            <div class="product-img">
-                                {% if item.photo %}
-                                <img src="{{ item.photo.url }}" alt="">
-                                {% endif %}
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">{{ item.producer }}</p>
-                                <h3 class="product-name"><a href="#">{{ item.name }}</a></h3>
-                                <h4 class="product-price">{{ item.price }}
-                                    {% if item.old_price > item.price %}
-                                    <del class="product-old-price">{{ item.old_price }}</del>
-                                </h4>
-                                {% endif %}
-                                <div class="product-btns">
-                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    <!-- /product -->
-                </div>
-                <!-- /store products -->
-
-                <!-- store bottom filter -->
-                <div class="store-filter clearfix">
-                    <span class="store-qty"> CAN WRITE SOMETHING LATER </span>
-
-                    {% if page_obj.has_other_pages %}
-                    <ul class="store-pagination">
-                        {% for p in page_obj.paginator.page_range %}
-                        {% if page_obj.number == p %}
-                        <li class="active"> {{ p }}</li>
-                        {% else %}
-                        <li><a href="?page={{ p }}">{{ p }}</a></li>
-                        {% endif %}
-                        {% endfor %}
-
-                        {% if page_obj.has_next %}
-                        <li><a href="?page={{ page_obj.next_page_number }}"><i class="fa fa-angle-right"></i></a></li>
-                        {% endif %}
-                    </ul>
-                    {% endif %}
-
-                </div>
-                <!-- /store bottom filter -->
-            </div>
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            {% include 'inc/_sidebar.html' %}
         </div>
-        <!-- /STORE -->
-    </div>
-    <!-- /row -->
-</div>
-<!-- /container -->
+        <div class="col-md-9">
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                {% for item in products %}
+                <div class="col">
+                    <div class="card h-100 CARD">
+                        <div>
+                            <a href="{{ item.get_absolute_url }}"><img src="{{ item.photo.url }}" class="card-img-top"
+                                                                       alt="..."></a>
+                        </div>
+                        <div class="card-body p-1"
+                             style="font-family: 'PT Sans Narrow', sans-serif; text-align: center; font-size: 17px; text-transform: uppercase;">
+                            <span class="card-text" style=" font-weight: 400"><a href="#"
+                                                                                 class="">{{ item.producer }}</a></span>
+                            <br>
+                            <h5 class="card-title mb-0" style=" font-weight: 700">{{ item.name }}</h5>
+                            <div>
 
-<!-- /SECTION -->
+                                <h6 style="font-weight: bold; font-size: 17px; color: #00327a;"> &#8381 {{ item.price }}
+                                    {% if item.price < item.old_price %}
+                                    <del style="font-size: 14px; color: #4e4e4e; vertical-align: top; font-weight: 400">
+                                        {{ item.old_price }}
+                                    </del>
+                                    {% endif %}
+                                </h6>
+
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-outline-primary"
+                                        style="border: 3px solid; border-radius: 0.3px; font-weight: 700; text-transform: uppercase; vertical-align: bottom;"
+                                        type="submit">
+                                    <img src="{% static 'img/cart2.png' %}" class="card-img-top"
+                                         style=" vertical-align: top; width: 22px;" alt="Oops..."> Add to cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <span> Try something else, please! </span>
+               {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}

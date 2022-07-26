@@ -1,100 +1,95 @@
 {% load store_tags %}
-
 {% get_store_info as store %}
-
-
-<footer id="footer">
-    <!-- top footer -->
-    <div class="section">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
+{% get_categories as categories %}
+<br>
+<br>
+<div style="border-top: 2px solid #0d6efd; border-bottom: 2px solid #0d6efd; display: block; background-color: #ffe300">
+    <br>
+    <div class="container" style="">
+        <footer class="py-4">
             <div class="row">
-                <div class="col-md-3 col-xs-6">
-                    <div class="footer">
-                        <h3 class="footer-title">О нас</h3>
-                        <p>{{ store.short_description }}</p>
-                        <ul class="footer-links">
-                            <li><a href="#"><i class="fa fa-map-marker"></i>{{ store.address }}</a></li>
-                            <li><a href="#"><i class="fa fa-phone"></i>{{ store.phone }}</a></li>
-                            <li><a href="#"><i class="fa fa-envelope-o"></i>{{ store.email }}</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-xs-6">
-                    <div class="footer">
-                        <h3 class="footer-title">Категории</h3>
-                        <ul class="footer-links">
-                            {% get_categories as categories %}
-                            {% for item in categories %}
-                            <li><a href="{{ item.get_absolute_url }}">{{ item.name }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="clearfix visible-xs"></div>
-
-                <div class="col-md-3 col-xs-6">
-                    <div class="footer">
-                        <h3 class="footer-title">Information</h3>
-                        <ul class="footer-links">
-                            <li><a href="#">О нас</a></li>
-                            <li><a href="{% url 'ppol' %}">Политика конфиденциальности</a></li>
-                            <li><a href="{% url 'ord_ret' %}">Заказ и возврат</a></li>
-                            <li><a href="{% url 'terms' %}">Условия пользования</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-md-3 col-xs-6">
-                    <div class="footer">
-                        <h3 class="footer-title">Service</h3>
-                        <ul class="footer-links">
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">View Cart</a></li>
-                            <li><a href="#">Wishlist</a></li>
-                            <li><a href="#">Track My Order</a></li>
-                            <li><a href="#">Help</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
-    </div>
-    <!-- /top footer -->
-
-    <!-- bottom footer -->
-    <div id="bottom-footer" class="section">
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <ul class="footer-payments">
-                        <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-                        <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-                        <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                <div class="col-6 col-md-2 mb-3">
+                    <h5 style="text-align: center; text-transform: uppercase; font-family: 'Press Start 2P', cursive; font-size: .9em;">
+                        ABOUT US </h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2"> {{ store.phone }}</li>
+                        <li class="nav-item mb-2"> {{ store.email }}</li>
+                        <li class="nav-item mb-2"> {{ store.address }}</li>
                     </ul>
-                    <span class="copyright">
-								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i
-                            class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                                                                                target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-							</span>
+                </div>
 
+                <div class="col-6 col-md-2 mb-3">
+                    <h5 style="text-align: center; text-transform: uppercase; font-family: 'Press Start 2P', cursive; font-size: .9em;">
+                        CATEGORIES</h5>
+                    <ul class="nav flex-column">
+                        {% for cat in categories %}
+                        <li class="nav-item mb-2 mx-auto" style="text-shadow: 1px 1px #fff;"><a href="{{ cat.get_absolute_url }}" class="nav-link p-0">
+                            {{ cat.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
 
+                <div class="col-6 col-md-2 mb-3">
+                    <h5 style="text-align: center; text-transform: uppercase; font-family: 'Press Start 2P', cursive; font-size: .9em;">
+                        INFORMATION</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item mb-2 mx-auto" style="text-shadow: 1px 1px #fff;">
+                            <a href="{% url 'about' %}" class="nav-link p-0">
+                            About</a>
+                        </li>
+                        <li class="nav-item mb-2 mx-auto" style="text-shadow: 1px 1px #fff;">
+                            <a href="{% url 'ppol' %}" class="nav-link p-0">
+                            Privacy policy</a></li>
+                        <li class="nav-item mb-2 mx-auto" style="text-shadow: 1px 1px #fff;">
+                            <a href="{% url 'ord_ret' %}" class="nav-link p-0">
+                            Orders/returns</a>
+                        </li>
+                        <li class="nav-item mb-2 mx-auto" style="text-shadow: 1px 1px #fff;">
+                            <a href="{% url 'terms' %}" class="nav-link p-0">
+                            Terms/conditions</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-5 offset-md-1 mb-3">
+                    <form>
+                        <h5 style="text-align: center; text-transform: uppercase; font-family: 'Press Start 2P', cursive; font-size: 1em;">
+                            Subscribe to our newsletter</h5>
+                        <p>Monthly digest of what's new and exciting from us.</p>
+                        <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                            <label for="newsletter1" class="visually-hidden">Email address</label>
+                            <input id="newsletter1" type="text" class="form-control" placeholder="Email address"
+                            style="border-radius: 0px; border: 2px solid #0d6efd;">
+                            <button class="btn btn-outline-primary"
+                                    style="border: 3px solid #fff; border-radius: 0.3px; font-weight: 700; text-transform: uppercase; vertical-align: bottom; color: #fff;"
+                                    type="button"> Subscribe
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
+
+            <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+                <p style="font-family: 'Press Start 2P', cursive; font-size: .9em;">&copy; 2022 Alexandra Sekirkina</p>
+                <ul class="list-unstyled d-flex">
+                    <li class="ms-3"><a class="link-dark" href="#">
+                        <svg class="bi" width="24" height="24">
+                            <use xlink:href="#twitter"/>
+                        </svg>
+                    </a></li>
+                    <li class="ms-3"><a class="link-dark" href="#">
+                        <svg class="bi" width="24" height="24">
+                            <use xlink:href="#instagram"/>
+                        </svg>
+                    </a></li>
+                    <li class="ms-3"><a class="link-dark" href="#">
+                        <svg class="bi" width="24" height="24">
+                            <use xlink:href="#facebook"/>
+                        </svg>
+                    </a></li>
+                </ul>
+            </div>
+        </footer>
     </div>
-    <!-- /bottom footer -->
-</footer>
+
+</div>

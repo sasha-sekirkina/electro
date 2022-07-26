@@ -11,8 +11,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ('price', 'old_price')
     list_filter = ('category', 'producer')
     fields = (
-    ('name', 'price', 'old_price'), ('amount', 'is_available'), ('slug', 'category', 'producer'), 'description',
-    'photo')
+    ('name', 'price', 'old_price'), ('amount', 'is_available'), ('slug', 'category', 'producer'), 'description', 'characteristics', 'photo')
     list_select_related = True
     prepopulated_fields = {"slug": ("name",)}
 

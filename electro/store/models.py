@@ -17,6 +17,7 @@ def get_producer_image_path(instance, filename):
 class Product(models.Model):
     name = models.CharField(max_length=150, verbose_name='Название')
     description = models.TextField(max_length=420, blank=True)
+    characteristics = models.TextField(max_length=2000, blank=True)
     photo = models.ImageField(upload_to=get_product_image_path, verbose_name='Фото')
     price = models.IntegerField(verbose_name='Цена')
     old_price = models.IntegerField(verbose_name='Старая цена')
@@ -35,8 +36,8 @@ class Product(models.Model):
         default_related_name = 'products'
         ordering = ['price']
 
-    # def get_absolute_url(self):
-    #     return reverse_lazy('procuct', kwargs={'producer_id': self.pk})
+    def get_absolute_url(self):
+        return reverse_lazy('prod_view', kwargs={'pk': self.pk})
 
 
 class Producer(models.Model):

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="col-md-9 mx-auto">
+        <div class="row" style="border: px solid #0d6efd;">
+            <div class="col-5">
+                <div class="mt-2" style="">
+                    <div class="col" style="display: flex; justify-content: space-around;">
+                        <img src="{{ item.photo.url }}" width="300px" alt="" style="border: 1px solid #000;">
+                    </div>
+                </div>
+                <div class="mt-2" style="display: flex; justify-content: space-around;">
+                    <div class="row ml-1">
+                        <div class="col p-0 m-1"><img src="{{ item.photo.url }}" width="95px" alt=""
+                                                      style="border: 1px solid #000;"></div>
+                        <div class="col p-0 m-1"><img src="{{ item.photo.url }}" width="95px" alt=""
+                                                      style="border: 1px solid #000;"></div>
+                        <div class="col p-0 m-1"><img src="{{ item.photo.url }}" width="95px" alt=""
+                                                      style="border: 1px solid #000;"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-7 px-5" style=" display: inline-block;">
+                <h2> {{ item.name | upper }} </h2>
+
+                <h6 class=""> ( {{ item.producer | upper }} )</h6>
+
+                <h4 style="font-weight: bold; font-size: 26px; color: #0d6efd;"> &#8381 {{ item.price }}
+                    {% if item.price < item.old_price %}
+                    <del style="font-size: 18px; color: #4e4e4e; vertical-align: top; font-weight: 400">
+                        {{ item.old_price }}
+                    </del>
+                    {% endif %}
+                </h4>
+                <div style="margin: 20px 0px 35px;">
+                    <button class="btn btn-outline-primary"
+                            style="border: 3px solid; border-radius: 0.3px; font-weight: 700; text-transform: uppercase; vertical-align: bottom;"
+                            type="submit">
+                        <img src="{% static 'img/cart2.png' %}" class="card-img-top"
+                             style=" vertical-align: top; width: 22px;" alt="Oops..."> Add to cart
+                    </button>
+                </div>
+                <p> {{ item.description | safe | linebreaks }} </p>
+            </div>
+
+            <div>
+                <hr>
+                <div style="padding-left: 44px; padding-right: 50px; ">
+                    <p> {{ item.characteristics | safe | linebreaks }} </p>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
