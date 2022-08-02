@@ -18,14 +18,14 @@
                         </div>
                         <div class="card-body p-1"
                              style="font-family: 'PT Sans Narrow', sans-serif; text-align: center; font-size: 17px; text-transform: uppercase;">
-                            <span class="card-text" style=" font-weight: 400"><a href="#"
-                                                                                 class="">{{ item.producer }}</a></span>
+                            <span class="card-text" style=" font-weight: 400"><a
+                                    href="{% url 'store:prdcr' item.producer_id %}" class="">{{ item.producer }}</a></span>
                             <br>
                             <h5 class="card-title mb-0" style=" font-weight: 700">{{ item.name }}</h5>
                             <div>
 
                                 <h6 style="font-weight: bold; font-size: 17px; color: #00327a;"> &#8381 {{ item.price }}
-                                    {% if item.price < item.old_price %}
+                                    {% if item.sale %}
                                     <del style="font-size: 14px; color: #4e4e4e; vertical-align: top; font-weight: 400">
                                         {{ item.old_price }}
                                     </del>

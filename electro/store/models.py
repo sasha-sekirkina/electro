@@ -20,6 +20,7 @@ class Product(models.Model):
     characteristics = models.TextField(max_length=2000, blank=True)
     photo = models.ImageField(upload_to=get_product_image_path, verbose_name='Фото')
     price = models.IntegerField(verbose_name='Цена')
+    sale = models.BooleanField(default=False)
     old_price = models.IntegerField(verbose_name='Старая цена')
     is_available = models.BooleanField(default=True, verbose_name='Наличие')
     amount = models.IntegerField(verbose_name='Количество')
@@ -37,7 +38,7 @@ class Product(models.Model):
         ordering = ['price']
 
     def get_absolute_url(self):
-        return reverse_lazy('prod_view', kwargs={'pk': self.pk})
+        return reverse('store:prod_view', kwargs={'pk': self.pk})
 
 
 class Producer(models.Model):
@@ -53,7 +54,7 @@ class Producer(models.Model):
         verbose_name_plural = 'Производители'
 
     def get_absolute_url(self):
-        return reverse_lazy('byproducer', kwargs={'slug': self.slug})
+        return reverse_lazy('store:byproducer', kwargs={'slug': self.slug})
 
 
 class Category(models.Model):
@@ -68,8 +69,7 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
     def get_absolute_url(self):
-        return reverse('bycategory', kwargs={'slug': self.slug})
-
+        return reverse('store:bycategory', kwargs={'slug': self.slug})
 
 
 class StoreInfo(models.Model):
@@ -92,4 +92,3 @@ class StoreInfo(models.Model):
     class Meta:
         verbose_name = 'Информация о магазине'
         verbose_name_plural = 'Информация о магазине'
-
