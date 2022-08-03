@@ -80,25 +80,6 @@ class FilteredProducts(ListView):
         return context
 
 
-# не смогла сделать пагинацию работающую
-
-# def by_producer(request, producer_id):
-#     products = Product.objects.filter(producer_id=producer_id)
-#
-#     paginator = Paginator(products, 4)
-#     page_number = request.GET.get('page')
-#     page_obj = paginator.get_page(page_number)
-#
-#     producer = Producer.objects.get(pk=producer_id).name
-#     lister = [producer]
-#     context = {
-#         'products': products,
-#         'reqs': lister,
-#         'page_obj': page_obj,
-#     }
-#     return render(request, 'store/products_list.html', context=context)
-
-
 class ProductsByProducer(ListView):
     model = Product
     template_name = 'store/products_list.html'
@@ -113,23 +94,6 @@ class ProductsByProducer(ListView):
         producer = Producer.objects.get(pk=self.kwargs['producer_id']).name
         context['reqs'] = [producer]
         return context
-
-
-# не смогла сделать пагинацию работающую
-#
-# def by_special(request):
-#     products = Product.objects.filter(sale=True)
-#
-#     paginator = Paginator(products, 4)
-#     page_number = request.GET.get('page')
-#     page_obj = paginator.get_page(page_number)
-#
-#     context = {
-#         'products': products,
-#         'special': 1,
-#         'page_obj': page_obj,
-#     }
-#     return render(request, 'store/products_list.html', context=context)
 
 
 class ProductsBySpecialOffer(ListView):
@@ -183,10 +147,3 @@ def terms_and_conditions(request):
 
 def about_us(request):
     return get_store_information(request, 'about_us')
-
-# older, before i created get_store_information
-#
-# def orders_and_returns(request):
-#     info = StoreInfo.objects.get(pk=1)
-#     orders_returns = info.orders_and_returns
-#     return render(request, 'store/text.html', context={'text': orders_returns})

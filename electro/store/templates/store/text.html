@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
+{% block navigation %}
+{% include 'store/inc/_navigation.html' %}
+{% endblock %}
+
 {% block content %}
-
 <div class="container">
-    <div><p>{{ text |safe|linebreaks }}</p>
-
+    <div>
+        <p>{{ text |safe|linebreaks }}</p>
     </div>
 </div>
 

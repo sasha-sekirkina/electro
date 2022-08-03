@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navigation %}
+{% include 'blog/inc/_navigation.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="px-5 pb-3">
+            <div class="col-md-12">
+                <div class="row row-cols-1 row-cols-md-3 g-1">
+                    {% for item in posts %}
+                    <div class="col">
+                        <div class="CARD2WRAP">
+                            <div class="card h-100 CARD2 text-center">
+                                <div class="card-header">
+
+                                    {% if request.path == item.category.get_absolute_url %}
+                                    Категория: <span> {{ item.category |upper }} </span>
+                                    {% else %}
+                                    Категория:
+                                    <a href="{{ item.category.get_absolute_url }}">
+                                        {{ item.category |upper }}
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <a href="{{ item.get_absolute_url }}">
+                                        <img src="{{ item.main_photo.url }}" class="" style="width: 100%;" alt="...">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <div style="">
+                                        <h5 class="card-title" style="font-size: 24px">
+                                            {{ item.title | upper }}
+                                        </h5>
+                                    </div>
+                                    <p class="card-text">{{ item.short_description }}</p>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    {{ item.created_at |date:"d-m-Y H:i" }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

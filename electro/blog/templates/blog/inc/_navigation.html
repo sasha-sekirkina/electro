@@ -1,0 +1,43 @@
+{% load blog_tags %}
+
+<div class="container my-6" style="font-family: 'Press Start 2P', cursive; font-size: 18px;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light py-6">
+        <div class="row mx-auto">
+            {% if request.path == '/store/' %}
+            <a class="col" href="{% url 'home' %}"> Магазин! </a>
+            {% else %}
+            <a class="col" href="{% url 'home' %}"> Магазин! </a>
+            {% endif %}
+
+            {% if request.path == '/blog/' %}
+            <a class="col" href="{% url 'blog:all_posts' %}">Новое</a>
+            {% else %}
+            <a class="col" href="{% url 'blog:all_posts' %}">Новое</a>
+            {% endif %}
+
+            {% get_categories as categories %}
+            {% for cat in categories %}
+            {% if request.path == cat.get_absolute_url %}
+            <a class="col" href="{{ cat.get_absolute_url }}">{{ cat.title }}</a>
+            {% else %}
+            <a class="col" href="{{ cat.get_absolute_url }}">{{ cat.title }}</a>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <form class="d-flex mb-1 mx-auto" action="{% url 'blog:search' %}" method="get">
+            <input class="form-control me-1" type="text" name="search"
+                   style="border-radius: 0px; border: 2px solid #0d6efd;
+                          width: 180px; height: 32px; font-family: 'Source Code Pro', monospace;
+                          font-size: 14px;" placeholder="Search">
+            <input class="btn btn-outline-primary py-0 px-2"
+                   style="border: 2px solid; border-radius: 0.3px; font-size: 15px;
+                       text-transform: uppercase; font-family: 'Source Code Pro', monospace;
+                       font-weight: 700; font-size: 14px;
+                       vertical-align: bottom; height: 32px; weight: 60px;"
+                   type="submit" value="search">
+        </form>
+
+    </nav>
+</div>
+
+<br>

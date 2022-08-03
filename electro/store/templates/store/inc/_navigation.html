@@ -1,0 +1,36 @@
+{% load store_tags %}
+
+<div class="container my-6" style="font-family: 'Press Start 2P', cursive; font-size: 19px;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light py-6">
+        <div class="row mx-auto">
+            {% if request.path == '/' %}
+            <a class="col" href="{% url 'home' %}">Главная</a>
+            {% else %}
+            <a class="col" href="{% url 'home' %}">Главная</a>
+            {% endif %}
+
+            {% get_categories as categories %}
+            {% for cat in categories %}
+            {% if request.path == cat.get_absolute_url %}
+            <a class="col" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+            {% else %}
+            <a class="col" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <form class="d-flex mb-1 mx-auto" action="{% url 'store:search' %}" method="get">
+            <input class="form-control me-1" type="text" name="search"
+                   style="border-radius: 0px; border: 2px solid #0d6efd; width: 180px; height: 32px;
+                   font-family: 'Source Code Pro', monospace; font-size: 14px;"
+                   placeholder="Search">
+            <input class="btn btn-outline-primary py-0 px-2"
+                   style="border: 2px solid; border-radius: 0.3px; font-size: 15px;
+                       text-transform: uppercase; vertical-align: bottom; height: 32px; weight: 60px;
+                       font-family: 'Source Code Pro', monospace;
+                       font-size: 14px;  text-transform: uppercase;"
+                   type="submit" value="search">
+        </form>
+
+    </nav>
+</div>
+<br>

@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block navigation %}
+{% include 'store/inc/_navigation.html' %}
+{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            {% include 'inc/_sidebar.html' %}
+            {% include 'store/inc/_sidebar.html' %}
         </div>
         <div class="col-md-9">
             <div class="row row-cols-1 row-cols-md-4 g-4">

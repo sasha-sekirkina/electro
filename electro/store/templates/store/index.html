@@ -2,10 +2,14 @@
 {% load store_tags %}
 {% load static %}
 
+
+{% block navigation %}
+{% include 'store/inc/_navigation.html' %}
+{% endblock %}
+
 {% block content %}
 
+{% show_blog_posts %}
+<br>
 {% show_special_offer_products %}
-
-
-
 {% endblock %}

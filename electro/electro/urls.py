@@ -16,12 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path, include
+from store.views import index
 
 from electro import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', index, name='home'),
     path('store/', include('store.urls')),
+    path('blog/', include('blog.urls')),
 ]
 
 if settings.DEBUG:

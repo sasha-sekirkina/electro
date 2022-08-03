@@ -1,6 +1,7 @@
 from django import template
 
 from store.models import Category, Producer, Product, StoreInfo
+from blog.models import Post
 from django.db.models import Count, F
 
 register = template.Library()
@@ -23,7 +24,7 @@ def get_producers():
         cnt__gt=0)
 
 
-@register.inclusion_tag('store/special_offer.html')
+@register.inclusion_tag('store/tags/special_offer.html')
 def show_special_offer_products():
     import random
     products = Product.objects.filter(sale=True, is_available=True)
@@ -35,6 +36,14 @@ def show_special_offer_products():
 
     context = {'products': products_set}
     context['title'] = 'Специальное предложение'
+    return context
+
+
+@register.inclusion_tag('store/tags/blog_desc.html')
+def show_blog_posts():
+    posts = Post.objects.all()[:3]
+    context = {'posts': posts }
+    context['title'] = 'Check out latest posts!!!'
     return context
 
 # @register.inclusion_tag('store/show_producers.html')
