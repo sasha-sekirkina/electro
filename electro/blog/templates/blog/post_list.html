@@ -16,8 +16,8 @@
                 <div class="row row-cols-1 row-cols-md-3 g-1">
                     {% for item in posts %}
                     <div class="col">
-                        <div class="CARD2WRAP">
-                            <div class="card h-100 CARD2 text-center">
+                        <div class="POSTS_CARD_WRAP">
+                            <div class="card h-100 POSTS_CARD text-center">
                                 <div class="card-header">
 
                                     {% if request.path == item.category.get_absolute_url %}
@@ -31,12 +31,12 @@
                                 </div>
                                 <div>
                                     <a href="{{ item.get_absolute_url }}">
-                                        <img src="{{ item.main_photo.url }}" class="" style="width: 100%;" alt="...">
+                                        <img src="{{ item.main_photo.url }}" class="POSTS_IMAGE" alt="...">
                                     </a>
                                 </div>
                                 <div class="card-body">
-                                    <div style="">
-                                        <h5 class="card-title" style="font-size: 24px">
+                                    <div>
+                                        <h5 class="card-title POSTS_TITLE">
                                             {{ item.title | upper }}
                                         </h5>
                                     </div>

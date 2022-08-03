@@ -1,27 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from django.utils.translation import gettext_lazy as _
-from django.db.models import F
-
 from .models import Product, Producer, Category, StoreInfo
-
-
-# class SpecialOfferFilter(admin.SimpleListFilter):
-#     title = _('Специальное предложение')
-#     parameter_name = 'sale'
-#
-#     def lookups(self, request, model_admin):
-#         return (
-#             ('special', _('скидка есть')),
-#             ('not_special', _('скидки нет')),
-#         )
-#
-#     def queryset(self, request, queryset):
-#         if self.value == 'special':
-#             return queryset.filter(old_price__gt=F('price'))
-#         if self.value == 'not_special':
-#             return queryset.filter(old_price__lte=F('price'))
 
 
 class ProductAdmin(admin.ModelAdmin):

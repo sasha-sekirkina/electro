@@ -15,22 +15,24 @@
             <div class="row row-cols-1 row-cols-md-4 g-4">
                 {% for item in products %}
                 <div class="col">
-                    <div class="card h-100 CARD">
+                    <div class="card h-100 PRODUCT_CARD">
                         <div>
                             <a href="{{ item.get_absolute_url }}"><img src="{{ item.photo.url }}" class="card-img-top"
                                                                        alt="..."></a>
                         </div>
-                        <div class="card-body p-1"
-                             style="font-family: 'PT Sans Narrow', sans-serif; text-align: center; font-size: 17px; text-transform: uppercase;">
-                            <span class="card-text" style=" font-weight: 400"><a
-                                    href="{% url 'store:prdcr' item.producer_id %}" class="">{{ item.producer }}</a></span>
+                        <div class="card-body p-1 PROD_CARD">
+                            <span class="card-text">
+                                <a href="{% url 'store:prdcr' item.producer_id %}">
+                                    {{ item.producer }}</a></span>
                             <br>
-                            <h5 class="card-title mb-0" style=" font-weight: 700">{{ item.name }}</h5>
+                            <h5 class="card-title mb-0 PROD_CARD_TITLE">
+                                {{ item.name }}</h5>
                             <div>
 
-                                <h6 style="font-weight: bold; font-size: 17px; color: #00327a;"> &#8381 {{ item.price }}
+                                <h6 class="PROD_CARD_PRICE">
+                                    &#8381 {{ item.price }}
                                     {% if item.sale %}
-                                    <del style="font-size: 14px; color: #4e4e4e; vertical-align: top; font-weight: 400">
+                                    <del class="PROD_CARD_OLD_PRICE">
                                         {{ item.old_price }}
                                     </del>
                                     {% endif %}
@@ -38,11 +40,9 @@
 
                             </div>
                             <div class="mb-3">
-                                <button class="btn btn-outline-primary"
-                                        style="border: 3px solid; border-radius: 0.3px; font-weight: 700; text-transform: uppercase; vertical-align: bottom;"
+                                <button class="btn btn-outline-primary CART_BUTTON"
                                         type="submit">
-                                    <img src="{% static 'img/cart2.png' %}" class="card-img-top"
-                                         style=" vertical-align: top; width: 22px;" alt="Oops..."> Add to cart
+                                    <img src="{% static 'img/cart2.png' %}" class="card-img-top CART_IMAGE" alt="Oops..."> Add to cart
                                 </button>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                 </div>
                 {% empty %}
                 <span> Try something else, please! </span>
-               {% endfor %}
+                {% endfor %}
             </div>
         </div>
     </div>

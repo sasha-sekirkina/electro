@@ -2,11 +2,11 @@
 
 <div class="container">
     <form action="{% url 'store:fltrd' %}">
-        <p class="mt-3 mb-1" style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 700; font-size: 20px; text-transform: uppercase;"> Категории: </p>
+        <p class="mt-3 mb-1 SIDE_TITLE"> Категории: </p>
         {% get_categories as categories %}
         <ul class="list-group">
             {% for category in categories %}
-            <li class="list-group-item" style="border: 1px solid #fff;">
+            <li class="list-group-item SIDE_GROUP">
                 <label class="form-check-label">
                     <input class="form-check-input me-1" type="checkbox" {% if category.slug in reqs %} checked {% endif %} value="1" name="{{ category.slug }}">
                     {{ category.name }}
@@ -15,11 +15,11 @@
             {% endfor %}
         </ul>
 
-        <p class="mt-3 mb-1" style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 700; font-size: 20px; text-transform: uppercase;"> Производители: </p>
+        <p class="mt-3 mb-1 SIDE_TITLE"> Производители: </p>
         {% get_producers as producers %}
         <ul class="list-group">
             {% for producer in producers %}
-            <li class="list-group-item" style="border: 1px solid #fff;">
+            <li class="list-group-item SIDE_GROUP">
                 <label class="form-check-label">
                     <input class="form-check-input me-1" type="checkbox" {% if producer.name in reqs %} checked {% endif %} value="1" name="{{ producer.name }}">
                     {{ producer.name }}
@@ -28,9 +28,9 @@
             {% endfor %}
         </ul>
 
-        <p class="mt-3 mb-1" style="font-family: 'PT Sans Narrow', sans-serif; font-weight: 700; font-size: 20px; text-transform: uppercase;"> Дополнительно: </p>
+        <p class="mt-3 mb-1 SIDE_TITLE"> Дополнительно: </p>
         <ul class="list-group">
-            <li class="list-group-item"  style="border: 1px solid #fff;">
+            <li class="list-group-item SIDE_GROUP">
                 <label class="form-check-label">
                     <input class="form-check-input me-1" type="checkbox" {% if special %} checked {% endif %}name="special" value="1">
                     Только со скидками
@@ -41,8 +41,7 @@
         <br>
         <div class="d-grid col-5 mx-auto">
             <button type="submit"
-                    class="btn btn-outline-primary"
-                    style="border: 3px solid; border-radius: 0.3px; font-weight: 700; text-transform: uppercase; vertical-align: bottom;">
+                    class="btn btn-outline-primary SIDE_BUTTON">
                 submit
             </button>
         </div>
