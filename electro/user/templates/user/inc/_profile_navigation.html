@@ -1,0 +1,21 @@
+<div class="container my-6 NAV">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light py-6">
+        <div class="row mx-auto">
+            {% if request.path == '/' %}
+            <a class="col TEXT_YEL" href="{% url 'home' %}">Главная</a>
+
+            <a class="col TEXT_BLU" href="{% url 'home' %}">Главная</a>
+            {% endif %}
+
+            {% load user_tags %}
+            {% get_sections as sections %}
+            {% for item in sections %}
+            <a class="col {% if request.path == item.0 %} TEXT_YEL
+                {% else %} TEXT_BLU {% endif %}" href="{{ item.0 }}"> {{ item.1 }}</a>
+
+            {% endfor %}
+
+        </div>
+    </nav>
+</div>
+<br>

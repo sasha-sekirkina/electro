@@ -3,22 +3,36 @@
     border-radius: none;
 }
 
-/* ----------------- BUTTONS ---------- */
-
-
-.CART_BUTTON {
-    border: 3px solid;
-    border-radius: 0.3px;
-    font-weight: 700;
-    text-transform: uppercase;
-    vertical-align: bottom;
+a:hover {
+    color: #056bff;
 }
 
-.CART_IMAGE {
-    vertical-align: top;
-    width: 22px;
+. nav-link:hover {
+    color: #056bff;
 }
 
+.TEXT_YEL {
+    color: #ffe300 !important;
+}
+.TEXT_YEL:hover, .TEXT_YEL:active {
+    color: #056bff !important;
+}
+
+.TEXT_BLU {
+    color: #056bff !important;
+}
+
+.TEXT_BLU:hover, .TEXT_BLU:active {
+    color: #ffe300 !important;
+}
+
+.AUTHLINK{
+    color: #fff !important;
+}
+
+.AUTHLINK:hover, .AUTHLINK:active {
+    color: #056bff !important;
+}
 
 /* <---- B A S E +
         H E A D E R +
@@ -28,16 +42,35 @@
     border-radius: none;
 }
 
+.HEADER_BACK {
+    background-color: #ffe300;
+    font-family: 'Press Start 2P', cursive;
+}
+
 .HEADER {
     background-color: #ffe300;
     font-family: 'Press Start 2P', cursive;
     font-size: 42px;
+    vertical-align: top;
+}
+
+
+.AUTH_H {
+    height: 20px;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #fff;
 }
 
  .BORDER {
     border-top: 2px solid #0d6efd;
     font-size: 15px;
  }
+
+.SMALL {
+     height: 66px;
+}
+
 
 .FOOTER {
     border-top: 2px solid #0d6efd;
@@ -80,7 +113,7 @@
 
 .NAV {
     font-family: 'Press Start 2P', cursive;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .SEARCH {
@@ -232,9 +265,9 @@
 }
 
 .PROD_DET_PRICE {
-   font-weight: bold;
+   font-weight: 400;
    font-size: 26px;
-   color: #0d6efd;
+   color: #000;
 }
 
 .PROD_DET_OLD_PRICE {
@@ -245,7 +278,39 @@
 }
 
 .ADD_TO_CART {
-    margin: 20px 0px 35px;
+    border: 2px solid #0d6efd;
+    margin: 8px 0px 30px;
+}
+
+.CART_QTY {
+    font-family: 'Source Code Pro', monospace;
+    text-transform: uppercase;
+    font-size: 16px;
+
+}
+
+.CART_BUTTON {
+    border: 2px solid #fff;
+    border-radius: 0.3px;
+    font-weight: 700;
+    text-transform: uppercase;
+    vertical-align: bottom;
+    padding: 2px 5px;
+}
+
+.WISH_LIST {
+    border: 2px solid #fff;
+    border-radius: 0.3px;
+    transition: .5 linear;
+    font-weight: 400;
+    font-size: 16px;
+    vertical-align: text-bottom;
+}
+
+.WISH_LIST:hover {
+    border: 2px solid #fff;
+    color: #ff4e27;
+    background-color: #ffe300;
 }
 
 .PRODUCT_DESCR {
@@ -291,7 +356,10 @@
 
 
 
+.FORMA {
+    width: 322px;
 
+}
 
 
 

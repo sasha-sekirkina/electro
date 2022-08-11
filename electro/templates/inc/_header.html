@@ -1,13 +1,54 @@
-{% load store_tags %}
-{% get_store_info as store %}
+{% load static %}
 
-<div class="HEADER pb-3">
+<div class="HEADER_BACK pb-1">
     <div class="container">
-        <nav class="navbar pb-0 pt-2">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg pb-0 HEADER">
-                    <a class="navbar-brand pb-0 HEADER">
-                        {{ store.name }}
+        <div class="container px-4">
+            <ul class="nav justify-content-end">
+                {% if user.is_authenticated %}
+                <li class="nav-item AUTH_H">
+                    <a class="nav-link text-white px-1 pb-0 AUTHLINK"
+                       aria-current="page" href="{% url 'user:general' %}">
+                        {{ user.username }}
+                    </a>
+                </li>
+                <li class="nav-item AUTH_H">
+                    <p class="nav-link text-white px-1 pb-0"> | </p>
+                </li>
+                <li class="nav-item AUTH_H">
+                    <a class="nav-link text-white px-1 pb-0 AUTHLINK"
+                       aria-current="page" href="{% url 'user:logout' %}">
+                        Logout
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item AUTH_H">
+                    <a class="nav-link text-white px-1 pb-0 AUTHLINK"
+                       aria-current="page" href="{% url 'user:login' %}">
+                        Login
+                    </a>
+                </li>
+                <li class="nav-item AUTH_H">
+                    <p class="nav-link text-white px-1 pb-0"> | </p>
+                </li>
+                <li class="nav-item AUTH_H">
+                    <a class="nav-link text-white px-1 pb-0 AUTHLINK"
+                       aria-current="page" href="{% url 'user:register' %}">
+                        Register
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+
+        <nav class="navbar pb-0 pt-0 px-3">
+            <div class="container-fluid SMALL">
+                <nav class="navbar navbar-expand-lg py-0 HEADER">
+                    <img src="{% static 'img/logo.png' %}" alt="">
+                </nav>
+                <nav class="navbar navbar-expand-rg p-0 HEADER">
+                    <a href="{% url 'cart:cart' %}">
+                        <img src="{% static 'img/shopping-basket.png' %}" width="58" alt="" class="px-2">
                     </a>
                 </nav>
             </div>

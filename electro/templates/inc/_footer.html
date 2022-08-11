@@ -1,4 +1,8 @@
+{% load cache %}
+{% cache 30 footer %}
+
 {% load store_tags %}
+
 {% get_store_info as store %}
 {% get_categories as categories %}
 <br>
@@ -23,7 +27,7 @@
                         CATEGORIES</h5>
                     <ul class="nav flex-column">
                         {% for cat in categories %}
-                        <li class="nav-item mb-2 mx-autoFOOTER_LINKS">
+                        <li class="nav-item mb-2 mx-auto FOOTER_LINKS">
                             <a href="{{ cat.get_absolute_url }}" class="nav-link p-0">
                             {{ cat.name }}</a></li>
                         {% endfor %}
@@ -94,3 +98,5 @@
     </div>
 
 </div>
+
+{% endcache %}

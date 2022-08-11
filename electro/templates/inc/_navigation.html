@@ -1,0 +1,24 @@
+{% load store_tags %}
+
+<div class="container my-6 NAV">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light py-6">
+        <div class="row mx-auto">
+            {% url 'home' as Home %}
+            <a class="col {% if request.path == Home %} TEXT_YEL
+            {% else %} TEXT_BLU {% endif %}" href="{% url 'home' %}">Главная</a>
+
+            {% get_categories as categories %}
+            {% for cat in categories %}
+                <a class="col {% if request.path == cat.get_absolute_url %} TEXT_YEL
+                {% else %} TEXT_BLU {% endif %}" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+            {% endfor %}
+        </div>
+        <form class="d-flex mb-1 mx-auto" action="{% url 'store:search' %}" method="get">
+            <input class="form-control me-1 SEARCH" type="text" name="search" placeholder="Search">
+            <input class="btn btn-outline-primary py-0 px-2
+            SEARCH_BUTTON" type="submit" value="search">
+        </form>
+
+    </nav>
+</div>
+<br>

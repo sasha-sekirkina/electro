@@ -1,16 +1,16 @@
+from django.contrib.auth.models import User
 from django.db import models
 
-# from django.urls import reverse_lazy
 from django.urls import reverse_lazy, reverse
+
+from user.models import Profile
 
 
 def get_product_image_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/products/<instance.category>/<instance.name>/<filename>
     return f'products/{instance.category}/{instance.name}/{filename}'
 
 
 def get_producer_image_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/producers/<instance.name>/<filename>
     return f'producers/{instance.name}/{filename}'
 
 
@@ -27,6 +27,7 @@ class Product(models.Model):
     category = models.ForeignKey('Category', on_delete=models.PROTECT, verbose_name='Категория')
     producer = models.ForeignKey('Producer', on_delete=models.PROTECT, verbose_name='Производитель')
     slug = models.SlugField(db_index=True, unique=True)
+    users_wishlist = models.ManyToManyField(User, related_name='user_wishlist', blank=True)
 
     def __str__(self):
         return self.name
@@ -54,7 +55,7 @@ class Producer(models.Model):
         verbose_name_plural = 'Производители'
 
     def get_absolute_url(self):
-        return reverse_lazy('store:byproducer', kwargs={'slug': self.slug})
+        return reverse_lazy('store:prdcr', kwargs={'slug': self.slug})
 
 
 class Category(models.Model):

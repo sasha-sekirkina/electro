@@ -22,9 +22,12 @@ from electro import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='home'),
+    path('__debug__/', include('debug_toolbar.urls')),
+    path('user/', include('user.urls')),
     path('store/', include('store.urls')),
     path('blog/', include('blog.urls')),
+    path('', index, name='home'),
+    path('cart/', include('cart.urls')),
 ]
 
 if settings.DEBUG:

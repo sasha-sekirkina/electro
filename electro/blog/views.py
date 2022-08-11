@@ -1,10 +1,10 @@
 from django.db.models import Q
-from django.shortcuts import render
 
 from django.views.generic import ListView, DetailView
-from .models import Post, Category
+from .models import Post
 
 
+# select_related
 class Posts(ListView):
     model = Post
     template_name = 'blog/post_list.html'
@@ -12,9 +12,10 @@ class Posts(ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        return Post.objects.filter(is_published=True)
+        return Post.objects.filter(is_published=True).select_related('category')
 
 
+# select_related
 class PostsByCategory(ListView):
     model = Post
     template_name = 'blog/post_list.html'
@@ -22,9 +23,11 @@ class PostsByCategory(ListView):
     paginate_by = 3
 
     def get_queryset(self):
-        return Post.objects.filter(category__slug=self.kwargs['slug'], is_published=True)
+        return Post.objects.filter(category__slug=self.kwargs['slug'],
+                                   is_published=True).select_related('category')
 
 
+# select_related
 class BlogSearch(ListView):
     model = Post
     template_name = 'blog/post_list.html'
@@ -35,7 +38,7 @@ class BlogSearch(ListView):
         return Post.objects.filter(
             Q(title__icontains=self.request.GET.get('search')) |
             Q(short_description__icontains=self.request.GET.get('search')),
-            is_published=True)
+            is_published=True).select_related('category')
 
     # нужен чтобы пагинация работала при поиске
     def get_context_data(self, *, object_list=None, **kwargs):

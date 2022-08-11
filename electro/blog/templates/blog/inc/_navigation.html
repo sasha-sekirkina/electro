@@ -4,23 +4,23 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light py-6">
         <div class="row mx-auto">
             {% if request.path == '/store/' %}
-            <a class="col" href="{% url 'home' %}"> Магазин! </a>
+            <a class="col TEXT_YEL" href="{% url 'home' %}"> Магазин! </a>
             {% else %}
-            <a class="col" href="{% url 'home' %}"> Магазин! </a>
+            <a class="col TEXT_BLU" href="{% url 'home' %}"> Магазин! </a>
             {% endif %}
 
             {% if request.path == '/blog/' %}
-            <a class="col" href="{% url 'blog:all_posts' %}">Новое</a>
+            <a class="col TEXT_YEL" href="{% url 'blog:all_posts' %}">Новое</a>
             {% else %}
-            <a class="col" href="{% url 'blog:all_posts' %}">Новое</a>
+            <a class="col TEXT_BLU" href="{% url 'blog:all_posts' %}">Новое</a>
             {% endif %}
 
             {% get_categories as categories %}
             {% for cat in categories %}
             {% if request.path == cat.get_absolute_url %}
-            <a class="col" href="{{ cat.get_absolute_url }}">{{ cat.title }}</a>
+            <a class="col TEXT_YEL" href="{{ cat.get_absolute_url }}">{{ cat.title }}</a>
             {% else %}
-            <a class="col" href="{{ cat.get_absolute_url }}">{{ cat.title }}</a>
+            <a class="col TEXT_BLU" href="{{ cat.get_absolute_url }}">{{ cat.title }}</a>
             {% endif %}
             {% endfor %}
         </div>

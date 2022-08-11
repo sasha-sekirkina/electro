@@ -1,33 +1,36 @@
-from django.core.paginator import Paginator
+from django.contrib.auth.forms import UserCreationForm
+from django.core.cache import cache
+# from django.views.decorators.cache import cache_page
+# from django.core.paginator import Paginator
 from django.db.models import F, Count
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib import messages
 
 from .models import Product, Producer, Category, StoreInfo
 
 
+# cache
 def get_set(model, field):
-    # возвращает сет со всеми слагами или именами (field), объекты готорых которых содержат
-    # хотя бы один продукт
-    needed = model.objects.filter().annotate(cnt=Count('products', filter=F(
-        'products__is_available'))).filter(
-        cnt__gt=0)
+    # возвращает сет из полей (field) всех объектов указанной модели (model),
+    # с которыми связан хотя бы один продукт
+
+    needed = cache.get_or_set(f'set_{model}', model.objects.filter().annotate(cnt=Count('products', filter=F(
+        'products__is_available'))).filter(cnt__gt=0))
+
+    # needed = model.objects.filter().annotate(cnt=Count('products', filter=F(
+    #     'products__is_available'))).filter(cnt__gt=0)
     slugs = set()
     for item in needed:
         eval(f'slugs.add(item.{field})')
     return slugs
 
-
-def get_store_information(request, field):
-    info = StoreInfo.objects.get(pk=1)
-    text = eval(f'info.{field}')
-    return render(request, 'store/text.html', context={'text': text})
-
-
 def index(request):
     return render(request, 'store/index.html')
 
 
+# select_related
 class ProductsByCategory(ListView):
     model = Product
     template_name = 'store/products_list.html'
@@ -35,15 +38,17 @@ class ProductsByCategory(ListView):
     paginate_by = 4
 
     def get_queryset(self):
-        return Product.objects.filter(category__slug=self.kwargs['slug'], is_available=True)
+        return Product.objects.filter(category__slug=self.kwargs['slug'],
+                                      is_available=True).select_related('category', 'producer')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        category = Category.objects.get(slug=self.kwargs['slug']).slug
+        category = self.kwargs['slug']
         context['reqs'] = [category]
         return context
 
 
+# select_related
 class FilteredProducts(ListView):
     model = Product
     template_name = 'store/products_list.html'
@@ -51,7 +56,7 @@ class FilteredProducts(ListView):
     paginate_by = 4
 
     def get_queryset(self):
-        query_to_show = Product.objects.filter(is_available=True)
+        query_to_show = Product.objects.filter(is_available=True).select_related('category', 'producer')
         req = set(self.request.GET)
         cat_slug = get_set(Category, 'slug')
         lst_cat = list(cat_slug & req)
@@ -70,7 +75,6 @@ class FilteredProducts(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         lister = list(self.request.GET)
-        # TODO
         string = '=1&'.join(lister)
         string += '=1&'
         context['s'] = string
@@ -80,6 +84,7 @@ class FilteredProducts(ListView):
         return context
 
 
+# select_related
 class ProductsByProducer(ListView):
     model = Product
     template_name = 'store/products_list.html'
@@ -87,15 +92,17 @@ class ProductsByProducer(ListView):
     paginate_by = 4
 
     def get_queryset(self):
-        return Product.objects.filter(producer_id=self.kwargs['producer_id'], is_available=True)
+        return Product.objects.filter(producer__slug=self.kwargs['slug'],
+                                      is_available=True).select_related('category', 'producer')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        producer = Producer.objects.get(pk=self.kwargs['producer_id']).name
+        producer = Producer.objects.get(slug=self.kwargs['slug']).name
         context['reqs'] = [producer]
         return context
 
 
+# select_related
 class ProductsBySpecialOffer(ListView):
     model = Product
     template_name = 'store/products_list.html'
@@ -103,7 +110,7 @@ class ProductsBySpecialOffer(ListView):
     paginate_by = 4
 
     def get_queryset(self):
-        return Product.objects.filter(sale=True, is_available=True)
+        return Product.objects.filter(sale=True, is_available=True).select_related('category', 'producer')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -111,6 +118,7 @@ class ProductsBySpecialOffer(ListView):
         return context
 
 
+# select_related
 class Search(ListView):
     model = Product
     template_name = 'store/products_list.html'
@@ -118,7 +126,8 @@ class Search(ListView):
     paginate_by = 4
 
     def get_queryset(self):
-        return Product.objects.filter(name__icontains=self.request.GET.get('search'), is_available=True)
+        return Product.objects.filter(name__icontains=self.request.GET.get('search'),
+                                      is_available=True).select_related('category', 'producer')
 
     # нужен чтобы пагинация работала при поиске
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -133,17 +142,25 @@ class ProductView(DetailView):
     context_object_name = 'item'
 
 
+@cache_page(20)
 def privacy_policy(request):
-    return get_store_information(request, 'privacy_policy')
+    text = StoreInfo.objects.get(pk=1).privacy_policy
+    return render(request, 'store/text.html', context={'text': text})
 
 
+@cache_page(20)
 def orders_and_returns(request):
-    return get_store_information(request, 'orders_and_returns')
+    text = StoreInfo.objects.get(pk=1).orders_and_returns
+    return render(request, 'store/text.html', context={'text': text})
 
 
+@cache_page(20)
 def terms_and_conditions(request):
-    return get_store_information(request, 'terms_and_conditions')
+    text = StoreInfo.objects.get(pk=1).terms_and_conditions
+    return render(request, 'store/text.html', context={'text': text})
 
 
+@cache_page(20)
 def about_us(request):
-    return get_store_information(request, 'about_us')
+    text = StoreInfo.objects.get(pk=1).about_us
+    return render(request, 'store/text.html', context={'text': text})

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block navigation %}
+{% include 'user/inc/_profile_navigation.html' %}
+{% endblock %}
+
+
+{% block content %}
+<div class="container d-flex justify-content-center">
+    {{ info }}
+</div>
+{% endblock %}

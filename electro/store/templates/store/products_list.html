@@ -1,60 +1,61 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block navigation %}
-{% include 'store/inc/_navigation.html' %}
-{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            {% include 'store/inc/_sidebar.html' %}
-        </div>
-        <div class="col-md-9">
-            <div class="row row-cols-1 row-cols-md-4 g-4">
-                {% for item in products %}
-                <div class="col">
-                    <div class="card h-100 PRODUCT_CARD">
-                        <div>
-                            <a href="{{ item.get_absolute_url }}"><img src="{{ item.photo.url }}" class="card-img-top"
-                                                                       alt="..."></a>
-                        </div>
-                        <div class="card-body p-1 PROD_CARD">
+
+<div class="row">
+    <div class="col-md-3">
+        {% include 'store/inc/_sidebar.html' %}
+    </div>
+    <div class="col-md-9">
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for item in products %}
+            <div class="col">
+                <div class="card h-100 PRODUCT_CARD">
+                    <div>
+                        <a href="{{ item.get_absolute_url }}">
+                            <img src="{{ item.photo.url }}" class="card-img-top" alt="...">
+                        </a>
+                    </div>
+                    <div class="card-body p-1 PROD_CARD">
                             <span class="card-text">
                                 <a href="{% url 'store:prdcr' item.producer_id %}">
                                     {{ item.producer }}</a></span>
-                            <br>
-                            <h5 class="card-title mb-0 PROD_CARD_TITLE">
-                                {{ item.name }}</h5>
-                            <div>
+                        <br>
+                        <h5 class="card-title mb-0 PROD_CARD_TITLE">
+                            {{ item.name }}</h5>
+                        <div>
 
-                                <h6 class="PROD_CARD_PRICE">
-                                    &#8381 {{ item.price }}
-                                    {% if item.sale %}
-                                    <del class="PROD_CARD_OLD_PRICE">
-                                        {{ item.old_price }}
-                                    </del>
-                                    {% endif %}
-                                </h6>
+                            <h6 class="PROD_CARD_PRICE">
+                                &#8381 {{ item.price }}
+                                {% if item.sale %}
+                                <del class="PROD_CARD_OLD_PRICE">
+                                    {{ item.old_price }}
+                                </del>
+                                {% endif %}
+                            </h6>
 
-                            </div>
-                            <div class="mb-3">
-                                <button class="btn btn-outline-primary CART_BUTTON"
-                                        type="submit">
-                                    <img src="{% static 'img/cart2.png' %}" class="card-img-top CART_IMAGE" alt="Oops..."> Add to cart
-                                </button>
-                            </div>
                         </div>
+                        {% comment %}
+                        <div class="mb-3">
+                            <button class="btn btn-outline-primary CART_BUTTON">
+                                <img src="{% static 'img/cart2.png' %}" class="card-img-top CART_IMAGE" alt="Oops...">
+                                Add to cart
+                            </button>
+                        </div>
+                        {% endcomment %}
                     </div>
                 </div>
-                {% empty %}
-                <span> Try something else, please! </span>
-                {% endfor %}
             </div>
+
+            {% empty %}
+            <span> Try something else, please! </span>
+            {% endfor %}
         </div>
     </div>
 </div>
+
 
 
 {% endblock %}
