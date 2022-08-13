@@ -16,8 +16,8 @@ def get_set(model, field):
     # возвращает сет из полей (field) всех объектов указанной модели (model),
     # с которыми связан хотя бы один продукт
 
-    needed = cache.get_or_set(f'set_{model}', model.objects.filter().annotate(cnt=Count('products', filter=F(
-        'products__is_available'))).filter(cnt__gt=0))
+    needed = cache.get_or_set(f'set_{model}', model.objects.filter().annotate(cnt=Count(
+        'products', filter=F('products__is_available'))).filter(cnt__gt=0))
 
     # needed = model.objects.filter().annotate(cnt=Count('products', filter=F(
     #     'products__is_available'))).filter(cnt__gt=0)
@@ -25,6 +25,7 @@ def get_set(model, field):
     for item in needed:
         eval(f'slugs.add(item.{field})')
     return slugs
+
 
 def index(request):
     return render(request, 'store/index.html')
@@ -38,8 +39,8 @@ class ProductsByCategory(ListView):
     paginate_by = 4
 
     def get_queryset(self):
-        return Product.objects.filter(category__slug=self.kwargs['slug'],
-                                      is_available=True).select_related('category', 'producer')
+        return Product.products.filter(category__slug=self.kwargs['slug']).select_related(
+            'category', 'producer')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -56,7 +57,7 @@ class FilteredProducts(ListView):
     paginate_by = 4
 
     def get_queryset(self):
-        query_to_show = Product.objects.filter(is_available=True).select_related('category', 'producer')
+        query_to_show = Product.products.all().select_related('category', 'producer')
         req = set(self.request.GET)
         cat_slug = get_set(Category, 'slug')
         lst_cat = list(cat_slug & req)
@@ -92,8 +93,8 @@ class ProductsByProducer(ListView):
     paginate_by = 4
 
     def get_queryset(self):
-        return Product.objects.filter(producer__slug=self.kwargs['slug'],
-                                      is_available=True).select_related('category', 'producer')
+        return Product.products.filter(producer__slug=self.kwargs['slug']).select_related(
+            'category', 'producer')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -110,7 +111,7 @@ class ProductsBySpecialOffer(ListView):
     paginate_by = 4
 
     def get_queryset(self):
-        return Product.objects.filter(sale=True, is_available=True).select_related('category', 'producer')
+        return Product.products.filter(sale=True).select_related('category', 'producer')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -126,8 +127,8 @@ class Search(ListView):
     paginate_by = 4
 
     def get_queryset(self):
-        return Product.objects.filter(name__icontains=self.request.GET.get('search'),
-                                      is_available=True).select_related('category', 'producer')
+        return Product.products.filter(name__icontains=self.request.GET.get(
+            'search')).select_related('category', 'producer')
 
     # нужен чтобы пагинация работала при поиске
     def get_context_data(self, *, object_list=None, **kwargs):

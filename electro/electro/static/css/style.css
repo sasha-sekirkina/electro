@@ -71,6 +71,18 @@ a:hover {
      height: 66px;
 }
 
+.CART_BADGE {
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 700;
+    font-size: 12px;
+    padding: .4em;
+}
+
+.SHOPPING_CART {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 22px;
+    text-transform: uppercase;
+}
 
 .FOOTER {
     border-top: 2px solid #0d6efd;
@@ -109,6 +121,49 @@ a:hover {
     font-size: .9em;
 }
 
+
+
+/* ---------- ---------------  shopping cart  ------------------ ---------- */
+
+.SC_CARD {
+    border: 1px solid #ffe300;
+    border-radius: 0;
+    text-align: center; !important
+}
+
+.SC_CARD:hover {
+    border: 1px solid #0d6efd;
+}
+
+.SC_TOTAL_PRICE {
+    font-size: 20px;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+}
+
+.SC_PROD_TITLE {
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.SC_BUTTON {
+    border: 1px solid #ffe300;
+    border-radius: 0.3px;
+    font-weight: 400;
+    text-transform: uppercase;
+    vertical-align: bottom;
+    padding: 2px 8px;
+    margin: 0px 3px;
+}
+
+.SC_SUBT {
+    font-size: 24px;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
 /* ---------- N A V I G A T I O N ---------- */
 
 .NAV {
@@ -133,7 +188,8 @@ a:hover {
     vertical-align: bottom;
     height: 32px;
     font-family: 'Source Code Pro', monospace;
-    font-size: 14px;  text-transform: uppercase;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
 /* ---------- S I D E B A R ---------- */

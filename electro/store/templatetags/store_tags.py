@@ -32,8 +32,8 @@ def get_producers():
 @register.inclusion_tag('store/tags/special_offer.html')
 def show_special_offer_products():
     import random
-    products = cache.get_or_set('special_offer_index', Product.objects.filter(
-        sale=True, is_available=True).select_related('category', 'producer'), 20)
+    products = cache.get_or_set('special_offer_index', Product.products.filter(
+        sale=True).select_related('category', 'producer'), 20)
     indexes = range(1, len(products))
     chosen_indexes = random.sample(indexes, 5)
     products_set = set()

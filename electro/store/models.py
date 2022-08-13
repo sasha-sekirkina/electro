@@ -6,6 +6,11 @@ from django.urls import reverse_lazy, reverse
 from user.models import Profile
 
 
+class ProductManager(models.Manager):
+    def get_queryset(self):
+        return super(ProductManager, self).get_queryset().filter(is_available=True)
+
+
 def get_product_image_path(instance, filename):
     return f'products/{instance.category}/{instance.name}/{filename}'
 
@@ -28,6 +33,8 @@ class Product(models.Model):
     producer = models.ForeignKey('Producer', on_delete=models.PROTECT, verbose_name='Производитель')
     slug = models.SlugField(db_index=True, unique=True)
     users_wishlist = models.ManyToManyField(User, related_name='user_wishlist', blank=True)
+    objects = models.Manager()
+    products = ProductManager()
 
     def __str__(self):
         return self.name

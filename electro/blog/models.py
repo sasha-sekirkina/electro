@@ -34,6 +34,7 @@ class Post(Model):
     views = PositiveIntegerField(default=0, verbose_name='Просмотры')
     category = ForeignKey(Category, on_delete=SET_NULL, verbose_name='Категория', related_name='posts', null=True)
     slug = SlugField(max_length=100, verbose_name='Url', db_index=True, unique=True)
+    objects = Manager()
 
     def __str__(self):
         return self.title

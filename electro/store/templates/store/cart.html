@@ -2,5 +2,85 @@
 {% load static %}
 
 {% block content %}
-basket
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-7">
+        <h1 class="text-center mb-2 SHOPPING_CART">
+            {% with total_qty=basket|length %}
+            Shopping cart<small class="text-muted">({{ total_qty }})
+            </small> </h1>
+            {% endwith %}
+        {% for item in basket %}
+        {% with product=item.product %}
+            <div class="card mb-3 SC_CARD">
+            <div class="row g-2">
+                <div class="col-md-3">
+                    <img src="{{ product.photo.url }}" class="img-fluid rounded-start" alt="..." width="150px">
+                </div>
+                <div class="col-md-9">
+                    <div class="card-body pb-0">
+                        <h5 class="SC_PROD_TITLE text-start">
+                            {{ product.name }}
+                        </h5>
+                        <div class="navbar navbar-expand-lg bg-light py-0">
+                            <div class="container-fluid border-bottom">
+                                <div class="col-3">
+                                    <small class="text-muted">
+                                        &#8381 {{ product.price }} ( X {{ item.qty }} )
+                                    </small>
+                                </div>
+                                <div class="col-6"></div>
+                                <div class="col-3">
+                                    <span class="SC_TOTAL_PRICE">
+                                      &#8381 {{ item.total_price }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="navbar navbar-expand-lg bg-light p-0">
+                        <div class="container-fluid p-3">
+                            <div class="col-4 CART_QTY text-start">
+                                <label for="select">Количество: </label>
+                                <select id="select">
+                                    <option selected> {{ item.qty }}</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="col-6 text-end">
+                                <button class="btn btn-outline-primary SC_BUTTON"
+                                        type="submit" id="add_to_cart" value="{{ item.id }}">
+                                    Update
+                                </button>
+                                <button class="btn btn-outline-primary SC_BUTTON"
+                                        type="submit" id="" value="{{ item.id }}">
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        {% endwith %}
+        {% endfor %}
+        <div class="row g-2">
+            <div class="col-md-4"></div>
+            <div class="col-md-2 border-bottom">
+                <h5 class="SC_SUBT"> К оплате: </h5>
+            </div>
+            <div class="col-md-3 border-bottom"></div>
+            <div class="col-md-2 border-bottom">
+                <h3 class="SC_SUBT text-end"> &#8381 {{ basket.get_total_price }}</h3>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}
