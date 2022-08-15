@@ -8,15 +8,17 @@
     <div class="col-md-7">
         <h1 class="text-center mb-2 SHOPPING_CART">
             {% with total_qty=basket|length %}
-            Shopping cart<small class="text-muted">({{ total_qty }})
-            </small> </h1>
-            {% endwith %}
+            Shopping cart<small class="text-muted">(<span id="cart-qty">{{ total_qty }}</span>)
+        </small></h1>
+        {% endwith %}
         {% for item in basket %}
         {% with product=item.product %}
-            <div class="card mb-3 SC_CARD">
+        <div data-index="{{ product.id }}" class="card mb-3 SC_CARD product-item">
             <div class="row g-2">
                 <div class="col-md-3">
-                    <img src="{{ product.photo.url }}" class="img-fluid rounded-start" alt="..." width="150px">
+                    <a href="{{ product.get_absolute_url }}">
+                        <img src="{{ product.photo.url }}" class="img-fluid rounded-start" alt="..." width="150px">
+                    </a>
                 </div>
                 <div class="col-md-9">
                     <div class="card-body pb-0">
@@ -27,13 +29,16 @@
                             <div class="container-fluid border-bottom">
                                 <div class="col-3">
                                     <small class="text-muted">
-                                        &#8381 {{ product.price }} ( X {{ item.qty }} )
+                                        &#8381 {{ product.price }} ( X
+                                        <span id="prod{{ product.id }}qty">
+                                            {{ item.qty }}</span> )
                                     </small>
                                 </div>
                                 <div class="col-6"></div>
                                 <div class="col-3">
                                     <span class="SC_TOTAL_PRICE">
-                                      &#8381 {{ item.total_price }}
+                                      &#8381
+                                        <span id="prod{{ product.id }}total">{{ item.total_price }}</span>
                                     </span>
                                 </div>
                             </div>
@@ -42,8 +47,8 @@
                     <nav class="navbar navbar-expand-lg bg-light p-0">
                         <div class="container-fluid p-3">
                             <div class="col-4 CART_QTY text-start">
-                                <label for="select">Количество: </label>
-                                <select id="select">
+                                <label for="select{{ product.id }}">Количество: </label>
+                                <select id="select{{ product.id }}">
                                     <option selected> {{ item.qty }}</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -52,12 +57,14 @@
                                 </select>
                             </div>
                             <div class="col-6 text-end">
-                                <button class="btn btn-outline-primary SC_BUTTON"
-                                        type="submit" id="add_to_cart" value="{{ item.id }}">
+                                <button class="btn btn-outline-primary SC_BUTTON" type="submit"
+                                        id="update_button" data-index="{{ product.id }}"
+                                        value="{{ product.id }}">
                                     Update
                                 </button>
-                                <button class="btn btn-outline-primary SC_BUTTON"
-                                        type="submit" id="" value="{{ item.id }}">
+                                <button class="btn btn-outline-primary SC_BUTTON" type="submit"
+                                        id="delete_button" data-index="{{ product.id }}"
+                                        value="{{ product.id }}">
                                     Delete
                                 </button>
                             </div>
@@ -68,19 +75,26 @@
         </div>
         {% endwith %}
         {% endfor %}
-        <div class="row g-2">
-            <div class="col-md-4"></div>
-            <div class="col-md-2 border-bottom">
-                <h5 class="SC_SUBT"> К оплате: </h5>
+            <div class="row g-2">
+                {% with total_qty=basket|length %}
+                {% if total_qty != 0 %}
+                    <div class="col-md-4"></div>
+                    <div class="col-md-2 border-bottom">
+                        <h5 class="SC_SUBT"> К оплате: </h5>
+                    </div>
+                    <div class="col-md-3 border-bottom"></div>
+                    <div class="col-md-2 border-bottom">
+                        <h3 class="SC_SUBT text-end"> &#8381
+                            <span id="subtotal">{{ basket.get_total_price }}</span>
+                        </h3>
+                    </div>
+                    <div class="col-md-1"></div>
+                {% else %}
+                    <h6 class="text-center text-muted mt-4"> Ваша корзина пуста</h6>
+                {% endif %}
+                {% endwith %}
             </div>
-            <div class="col-md-3 border-bottom"></div>
-            <div class="col-md-2 border-bottom">
-                <h3 class="SC_SUBT text-end"> &#8381 {{ basket.get_total_price }}</h3>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
     </div>
-
 </div>
 
 {% endblock %}

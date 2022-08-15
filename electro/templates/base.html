@@ -88,18 +88,17 @@
 
 {% include 'inc/_footer.html' %}
 
-
 <script language="JavaScript" type="text/javascript">
     $(document).on('click', '#add_to_cart', function (e) {
         e.preventDefault();
         $.ajax({
             type: 'POST',
-            url: '{% url "cart:add_to_cart" %}',
+            url: '{% url "cart:cart_change" %}',
             data: {
-                productid: $('#add_to_cart').val(),
+                productid: $(this).data('index'),
                 productqty: $('#select option:selected').val(),
                 csrfmiddlewaretoken: "{{csrf_token}}",
-                action: 'post'
+                action: 'add'
             },
             success: function (json) {
                 document.getElementById("basket-qty").innerHTML = json.qty
@@ -108,8 +107,50 @@
         });
     })
 
-</script>
+    $(document).on('click', '#delete_button', function (e) {
+        e.preventDefault();
+        var prodid = $(this).data('index')
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:cart_change" %}',
+            data: {
+                productid: prodid,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                action: 'delete'
+            },
+            success: function (json) {
+                $('.product-item[data-index="' + prodid + '"]').remove();
+                document.getElementById("basket-qty").innerHTML = json.qty
+                document.getElementById("cart-qty").innerHTML = json.qty
+                document.getElementById("subtotal").innerHTML = json.subtotal
+            },
+            error: function (xhr, errmsg, err) {}
+        });
+    })
 
+    $(document).on('click', '#update_button', function (e) {
+        e.preventDefault();
+        var prodid = $(this).data('index')
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:cart_change" %}',
+            data: {
+                productid: prodid,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                productqty: $('#select' + prodid + ' option:selected').val(),
+                action: 'update'
+            },
+            success: function (json) {
+                document.getElementById("basket-qty").innerHTML = json.qty
+                document.getElementById("cart-qty").innerHTML = json.qty
+                document.getElementById("subtotal").innerHTML = json.subtotal
+                document.getElementById("prod" + json.productid + "qty").innerHTML = json.prodqty
+                document.getElementById("prod" + json.productid + "total").innerHTML = json.prodtotal
+            },
+            error: function (xhr, errmsg, err) {}
+        });
+    })
+</script>
 
 </body>
 </html>

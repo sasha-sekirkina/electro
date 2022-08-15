@@ -23,7 +23,7 @@
                             </div>
                             <div class="card-body p-1 PROD_CARD">
                                 <span class="card-text">
-                                    <a href="{% url 'store:prdcr' item.producer_id %}"
+                                    <a href="{{ item.producer.get_absolute_url }}"
                                        class="">{{ item.producer }}</a></span>
                                 <br>
                                 <h5 class="card-title mb-0 PROD_CARD_TITLE">
@@ -37,14 +37,14 @@
                                     </h6>
 
                                 </div>
-                                {% comment %}
                                 <div class="mb-3">
-                                    <button class="btn btn-outline-primary CART_BUTTON" type="submit">
+                                    <button class="btn btn-outline-primary CART_BUTTON" id="add_to_cart"
+                                            data-index="{{ item.id }}" value="{{ item.id }}">
                                         <img src="{% static 'img/cart2.png' %}" class="card-img-top CART_IMAGE"
-                                             alt="Oops..."> Add to cart
+                                             alt="Oops...">
+                                        Add to cart
                                     </button>
                                 </div>
-                                {% endcomment %}
                             </div>
                         </div>
                     </div>

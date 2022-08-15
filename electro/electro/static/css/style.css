@@ -346,12 +346,21 @@ a:hover {
 }
 
 .CART_BUTTON {
-    border: 2px solid #fff;
+    border: 2px solid #0d6efd;
     border-radius: 0.3px;
     font-weight: 700;
     text-transform: uppercase;
     vertical-align: bottom;
+}
+
+.NO_BRDR {
+    border: 2px solid #fff;
     padding: 2px 5px;
+}
+
+.CART_IMAGE {
+    width: 25px;
+    margin-right: 2px;
 }
 
 .WISH_LIST {
