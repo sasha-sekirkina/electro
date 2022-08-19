@@ -28,7 +28,10 @@ class Profile(models.Model):
         default=True,
         null=True,
     )
-
+    is_active = models.BooleanField(
+        verbose_name='Подтвержден',
+        default=False,
+    )
     # orders = models.ManyToManyField('Order', verbose_name='Заказы', null=True)
     address_country_city = models.CharField(
         max_length=100,

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, PasswordResetForm, \
+    SetPasswordForm
 from django import forms
 
 from .models import Profile
@@ -7,11 +8,13 @@ from .models import Profile
 
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(
+        label='Имя пользователя',
         widget=forms.TextInput(
             attrs={'class': 'form-control'}
         )
     )
     password = forms.CharField(
+        label='Пароль',
         widget=forms.PasswordInput(
             attrs={'class': 'form-control'}
         )
@@ -70,6 +73,39 @@ class UserPasswordChangeForm(PasswordChangeForm):
         label='Подтвердите новый пароль',
         widget=forms.PasswordInput(
             attrs={"class": "form-control", "autocomplete": "new-password"}
+        )
+    )
+
+
+class UserPasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(
+        label='Электронная почта',
+        widget=forms.EmailInput(
+            attrs={'class': 'form-control'}
+        )
+    )
+
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        u = User.objects.filter(email=email)
+        if not u:
+            raise forms.ValidationError(
+                'К сожалению мы не можем отправить подтверждение на указанный адрес')
+        return email
+
+
+class UserPasswordResetConfirmForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label='Пароль',
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control'}
+        )
+    )
+    new_password2 = forms.CharField(
+        label='Подтвердите пароль',
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control'}
         )
     )
 

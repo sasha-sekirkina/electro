@@ -12,65 +12,56 @@
     <div class="container">
         <footer class="py-4">
             <div class="row">
-                <div class="col-6 col-md-2 mb-3">
+                <div class="col-6 col-md-3 mb-3">
+
+                </div>
+
+                <div class="col-6 col-md-3 mb-3">
                     <h5 class="FOOTER_TITLE">
-                        ABOUT US </h5>
-                    <ul class="nav flex-column">
+                        Контакты </h5>
+                    <ul class="nav flex-column text-center">
                         <li class="nav-item mb-2"> {{ store.phone }}</li>
                         <li class="nav-item mb-2"> {{ store.email }}</li>
                         <li class="nav-item mb-2"> {{ store.address }}</li>
+                        <li class="nav-item mb-2 mx-auto FOOTER_LINKS">
+                            <a href="{% url 'contact_form' %}" class="nav-link p-0">
+                                Связаться с нами</a>
+                        </li>
                     </ul>
                 </div>
 
-                <div class="col-6 col-md-2 mb-3">
+                <div class="col-6 col-md-3 mb-3">
                     <h5 class="FOOTER_TITLE">
-                        CATEGORIES</h5>
+                        Категории</h5>
                     <ul class="nav flex-column">
                         {% for cat in categories %}
                         <li class="nav-item mb-2 mx-auto FOOTER_LINKS">
                             <a href="{{ cat.get_absolute_url }}" class="nav-link p-0">
-                            {{ cat.name }}</a></li>
+                                {{ cat.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
 
-                <div class="col-6 col-md-2 mb-3">
+                <div class="col-6 col-md-3 mb-3">
                     <h5 class="FOOTER_TITLE">
-                        INFORMATION</h5>
+                        Информация</h5>
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2 mx-auto FOOTER_LINKS">
                             <a href="{% url 'store:about' %}" class="nav-link p-0">
-                            About</a>
+                                О нас</a>
                         </li>
                         <li class="nav-item mb-2 mx-auto FOOTER_LINKS">
                             <a href="{% url 'store:ppol' %}" class="nav-link p-0">
-                            Privacy policy</a></li>
+                                Политика конфиденциальности</a></li>
                         <li class="nav-item mb-2 mx-auto FOOTER_LINKS">
                             <a href="{% url 'store:ord_ret' %}" class="nav-link p-0">
-                            Orders/returns</a>
+                                Политика возврата</a>
                         </li>
                         <li class="nav-item mb-2 mx-auto FOOTER_LINKS">
                             <a href="{% url 'store:terms' %}" class="nav-link p-0">
-                            Terms/conditions</a>
+                                Условия пользования</a>
                         </li>
                     </ul>
-                </div>
-
-                <div class="col-md-5 offset-md-1 mb-3">
-                    <form>
-                        <h5 class="FOOTER_TITLE">
-                            Subscribe to our newsletter</h5>
-                        <p>Monthly digest of what's new and exciting from us.</p>
-                        <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-                            <label for="newsletter1" class="visually-hidden">Email address</label>
-                            <input id="newsletter1" type="text"
-                                   class="form-control NEWSLETTER"
-                                   placeholder="Email address">
-                            <button class="btn btn-outline-primary NEWSLETTER_BUTTON"
-                                    type="button"> Subscribe
-                            </button>
-                        </div>
-                    </form>
                 </div>
             </div>
 

@@ -5,11 +5,43 @@ from django.core.cache import cache
 from django.db.models import F, Count
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.cache import cache_page
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, View
 from django.contrib import messages
+from django.core.mail import send_mail
 
+from electro import settings
+from .forms import ContactForm
 from .models import Product, Producer, Category, StoreInfo
 
+
+class ContactUsView(View):
+    def get(self, request):
+        form = ContactForm()
+        return render(request, 'store/contact_form.html', {'form': form})
+
+    def post(self, request):
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form_email = form.cleaned_data['email']
+            form_subject = form.cleaned_data['subject']
+            form_content= form.cleaned_data['content']
+            subj = 'Мы получили ваше обращение!'
+            msg = """Oжидайте ответ на этот электронный адрес в течение 3-х рабочих дней.
+
+                        С уважением, команда Electro"""
+            mail = send_mail(subj, msg, settings.EMAIL_HOST_USER, [form_email], fail_silently=False)
+            if mail:
+                subject = f'Контактная форма с сайта - {form_email} [{form_subject}]'
+                contact = send_mail(subject, form_content, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER], fail_silently=False)
+            else:
+                messages.error(request, "Проверьте введенный адрес электронной почты")
+            if contact:
+                messages.success(request, """Письмо успешно отправлено! 
+                Oжидайте ответ на указанный адрес в течение 3-х рабочих дней""")
+                return redirect('contact_form')
+        else:
+            messages.error(request, """Письмо не было отправлено, 
+            проверьте правильность заполнения формы""")
 
 # cache
 def get_set(model, field):

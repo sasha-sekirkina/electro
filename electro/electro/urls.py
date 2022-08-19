@@ -19,6 +19,7 @@ from django.urls import path, include
 from store.views import index
 
 from electro import settings
+from store.views import ContactUsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +29,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('', index, name='home'),
     path('cart/', include('cart.urls')),
+    path('contact_form/', ContactUsView.as_view(), name='contact_form')
 ]
 
 if settings.DEBUG:

@@ -141,3 +141,11 @@ CACHES = {
         'TIMEOUT': 20,
     }
 }
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = "site.electro@mail.ru"
+EMAIL_HOST_PASSWORD = "egufiqbzvXg9bnVP9AT2"
+# EMAIL_HOST_PASSWORD = "6Zz7TK8sh3RTVm4"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

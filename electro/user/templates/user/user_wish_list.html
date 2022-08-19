@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}{{ block.super }} - Wishlist{% endblock %}
+
 {% block navigation %}
 {% include 'user/inc/_profile_navigation.html' %}
 {% endblock %}
