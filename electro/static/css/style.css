@@ -1,0 +1,448 @@
+.page-link {
+    border: 1px solid #fff;
+    border-radius: none;
+}
+
+a:hover {
+    color: #056bff;
+}
+
+. nav-link:hover {
+    color: #056bff;
+}
+
+.TEXT_YEL {
+    color: #ffe300 !important;
+}
+.TEXT_YEL:hover, .TEXT_YEL:active {
+    color: #056bff !important;
+}
+
+.TEXT_BLU {
+    color: #056bff !important;
+}
+
+.TEXT_BLU:hover, .TEXT_BLU:active {
+    color: #ffe300 !important;
+}
+
+.AUTHLINK{
+    color: #fff !important;
+}
+
+.AUTHLINK:hover, .AUTHLINK:active {
+    color: #056bff !important;
+}
+
+/* <---- B A S E +
+        H E A D E R +
+        F O O T E R  ----> */
+
+.PAGE {
+    border-radius: none;
+}
+
+.HEADER_BACK {
+    background-color: #ffe300;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.HEADER {
+    background-color: #ffe300;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 42px;
+    vertical-align: top;
+}
+
+
+.AUTH_H {
+    height: 20px;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+ .BORDER {
+    border-top: 2px solid #0d6efd;
+    font-size: 15px;
+ }
+
+.SMALL {
+     height: 66px;
+}
+
+.CART_BADGE {
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 700;
+    font-size: 12px;
+    padding: .4em;
+}
+
+.SHOPPING_CART {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 22px;
+    text-transform: uppercase;
+}
+
+.FOOTER {
+    border-top: 2px solid #0d6efd;
+    border-bottom: 2px solid #0d6efd;
+    display: block;
+    background-color: #ffe300;
+}
+
+.FOOTER_TITLE {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Press Start 2P', cursive;
+    font-size: .9em;
+}
+
+.FOOTER_LINKS {
+    text-shadow: 1px 1px #fff;
+}
+
+.NEWSLETTER {
+    border-radius: 0px;
+    border: 2px solid #0d6efd;
+}
+
+.NEWSLETTER_BUTTON {
+    border: 3px solid #fff;
+    border-radius: 0.3px;
+    font-weight: 700;
+    text-transform: uppercase;
+    vertical-align: bottom;
+    color: #fff;
+}
+
+.SIGNATURE {
+    font-family: 'Press Start 2P', cursive;
+    font-size: .9em;
+}
+
+
+
+/* ---------- ---------------  shopping cart  ------------------ ---------- */
+
+.SC_CARD {
+    border: 1px solid #ffe300;
+    border-radius: 0;
+    text-align: center; !important
+}
+
+.SC_CARD:hover {
+    border: 1px solid #0d6efd;
+}
+
+.SC_TOTAL_PRICE {
+    font-size: 20px;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+}
+
+.SC_PROD_TITLE {
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.SC_BUTTON {
+    border: 1px solid #ffe300;
+    border-radius: 0.3px;
+    font-weight: 400;
+    text-transform: uppercase;
+    vertical-align: bottom;
+    padding: 2px 8px;
+    margin: 0px 3px;
+}
+
+.SC_SUBT {
+    font-size: 24px;
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* ---------- N A V I G A T I O N ---------- */
+
+.NAV {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+}
+
+.SEARCH {
+    border-radius: 0px;
+    border: 2px solid #0d6efd;
+    width: 180px;
+    height: 32px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 14px;
+}
+
+.SEARCH_BUTTON {
+    border: 2px solid;
+    border-radius: 0.3px;
+    font-size: 15px;
+    text-transform: uppercase;
+    vertical-align: bottom;
+    height: 32px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+/* ---------- S I D E B A R ---------- */
+
+.SIDE_TITLE {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.SIDE_GROUP {
+    border: 1px solid #fff;
+}
+
+.SIDE_BUTTON {
+    border: 3px solid;
+    border-radius: 0.3px;
+    font-weight: 700;
+    text-transform: uppercase;
+    vertical-align: bottom;
+}
+
+/* ---------- I N D E X ---------- */
+
+.SPEC_OFF_CARDS {
+    border: 3px solid #0d6efd;
+    border-radius: 0;
+    text-align: center; !important
+}
+
+.SPEC_OFF_CARDS:hover {
+    border: 3px solid #ffe300;
+}
+
+.SPEC_OFF_TITLE {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 24px;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+
+.BLOG_DESC_CONTAINER {
+    padding: 0 100px;
+    background: #fff;
+    text-align: center;
+}
+
+.BLOG_DESC_TITLE {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 24px;
+    display: inline-block;
+}
+
+.ARROW {
+    vertical-align: top;
+    height: 34px;
+}
+
+.BLOG_DESC_IMG {
+    width: 100%;
+}
+
+.BLOG_DESC_CARD_TITLE {
+    font-family: 'PT Sans Narrow', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.BLOG_DESC_CARD_TEXT {
+    font-size: 14px;
+}
+
+.SPEC_OFF_CONTAINER {
+    border: 3px solid #ffe300;
+    background-color: #e5f0fe;
+    text-align: center;
+}
+
+/* ---------- P R O D U C T S   L I S T ---------- */
+
+.PRODUCT_CARD {
+    border: 10px solid #fff;
+    border-radius: 0;
+    transition: .2s linear;
+}
+
+.PRODUCT_CARD:hover {
+    border: 3px solid #ffe300;
+}
+
+.PROD_CARD {
+    font-family: 'PT Sans Narrow', sans-serif;
+    text-align: center;
+    font-size: 17px;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.PROD_CARD_TITLE {
+    font-weight: 700;
+}
+
+.PROD_CARD_PRICE {
+    font-weight: bold;
+    font-size: 17px;
+    color: #00327a;
+}
+
+.PROD_CARD_OLD_PRICE {
+    font-size: 14px;
+    color: #4e4e4e;
+    vertical-align: top;
+    font-weight: 400;
+}
+
+
+/* ---------- P R O D U C T ---------- */
+
+.PHOTO_DIV {
+    display: flex;
+    justify-content: space-around;
+}
+
+.PHOTO_BRDR {
+    border: 1px solid #000;
+}
+
+.PROD_DET_PRICE {
+   font-weight: 400;
+   font-size: 26px;
+   color: #000;
+}
+
+.PROD_DET_OLD_PRICE {
+    font-size: 18px;
+    color: #4e4e4e;
+    vertical-align: top;
+    font-weight: 400;
+}
+
+.ADD_TO_CART {
+    border: 2px solid #0d6efd;
+    margin: 8px 0px 30px;
+}
+
+.CART_QTY {
+    font-family: 'Source Code Pro', monospace;
+    text-transform: uppercase;
+    font-size: 16px;
+
+}
+
+.CART_BUTTON {
+    border: 2px solid #fff;
+    border-radius: 0.3px;
+    font-weight: 700;
+    text-transform: uppercase;
+    vertical-align: bottom;
+}
+
+.NO_BRDR {
+    border: 2px solid #fff;
+    padding: 2px 5px;
+}
+
+.CART_IMAGE {
+    width: 25px;
+    margin-right: 2px;
+}
+
+.WISH_LIST {
+    border: 2px solid #fff;
+    border-radius: 0.3px;
+    transition: .5 linear;
+    font-weight: 400;
+    font-size: 16px;
+    vertical-align: text-bottom;
+    padding: 3px;
+    display: block;
+    width: 44px;
+    height: 44px;
+}
+
+.WISH_LIST:hover {
+    border: 2px solid #fff;
+    color: #ff4e27;
+    background-color: #ffe300;
+}
+
+.PRODUCT_DESCR {
+    padding-left: 44px;
+    padding-right: 50px;
+}
+
+/* ---------------------POSTS----------*/
+
+.POSTS_CARD {
+    border: 5px solid #0d6efd;
+    border-radius: 0;
+}
+
+.POSTS_CARD:hover {
+    border: 5px solid #ffe300;
+}
+
+.POSTS_CARD_WRAP {
+    border: 5px solid #fff;
+    border-radius: 0;
+    transition: .2s linear;
+}
+
+.POSTS_CARD_WRAP:hover {
+    border: 5px solid #ffe300;
+}
+
+.POSTS_IMAGE {
+    width: 100%;
+}
+
+.POSTS_TITLE {
+    font-size: 24px;
+}
+
+/* ___ P O S T D E T A I L ___ */
+
+.POST_BRDR {
+    border: 4px solid #1874fc;
+    border-radius: 0;
+}
+
+
+
+.FORMA {
+    width: 322px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

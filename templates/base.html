@@ -1,0 +1,168 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block title %}Electro{% endblock %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=PT+Sans+Narrow:wght@400;700&family=Press+Start+2P&family=Source+Code+Pro:wght@400;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image\png">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+{% include 'inc/_header.html' %}
+
+
+{% block navigation %}
+{% include 'inc/_navigation.html' %}
+{% endblock %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'error' %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+            {% elif message.tags == 'info' %}
+            <div class="alert alert-info p-2 text-center" role="alert">
+                {{ message }} - <a class="alert-link" href="{% url 'user:wishlist' %}"> Список желаний</a>
+            </div>
+            {% else %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message }}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    {% block content %} {% endblock %}
+</div>
+
+{% if page_obj.has_other_pages %}
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center mt-4">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?{{ s }}page={{ page_obj.previous_page_number }}" tabindex="-1">
+                Previous</a>
+        </li>
+        {% endif %}
+        {% for p in page_obj.paginator.page_range %}
+        {% if page_obj.number == p %}
+        <li class="page-item active" aria-current="#">
+            <a class="page-link">
+                {{ p }}</a>
+        </li>
+        {% elif p > page_obj.number|add:-2 and p < page_obj.number|add:2 %}
+        <li class="page-item">
+            <a class="page-link" href="?{{ s }}page={{ p }}">{{ p }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?{{ s }}page={{ page_obj.next_page_number }}">
+                Next</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+{% include 'inc/_footer.html' %}
+
+<script language="JavaScript" type="text/javascript">
+    $(document).on('click', '#add_to_cart', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:cart_change" %}',
+            data: {
+                productid: $(this).data('index'),
+                productqty: $('#select option:selected').val(),
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: 'add'
+            },
+            success: function (json) {
+                document.getElementById("basket-qty").innerHTML = json.qty
+            },
+            error: function (xhr, errmsg, err) {}
+        });
+    })
+
+    $(document).on('click', '#delete_button', function (e) {
+        e.preventDefault();
+        var prodid = $(this).data('index')
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:cart_change" %}',
+            data: {
+                productid: prodid,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                action: 'delete'
+            },
+            success: function (json) {
+                $('.product-item[data-index="' + prodid + '"]').remove();
+                document.getElementById("basket-qty").innerHTML = json.qty
+                document.getElementById("cart-qty").innerHTML = json.qty
+                document.getElementById("subtotal").innerHTML = json.subtotal
+            },
+            error: function (xhr, errmsg, err) {}
+        });
+    })
+
+    $(document).on('click', '#update_button', function (e) {
+        e.preventDefault();
+        var prodid = $(this).data('index')
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart:cart_change" %}',
+            data: {
+                productid: prodid,
+                csrfmiddlewaretoken: "{{ csrf_token }}",
+                productqty: $('#select' + prodid + ' option:selected').val(),
+                action: 'update'
+            },
+            success: function (json) {
+                document.getElementById("basket-qty").innerHTML = json.qty
+                document.getElementById("cart-qty").innerHTML = json.qty
+                document.getElementById("subtotal").innerHTML = json.subtotal
+                document.getElementById("prod" + json.productid + "qty").innerHTML = json.prodqty
+                document.getElementById("prod" + json.productid + "total").innerHTML = json.prodtotal
+            },
+            error: function (xhr, errmsg, err) {}
+        });
+    })
+
+</script>
+
+</body>
+</html>

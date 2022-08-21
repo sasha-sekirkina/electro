@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ block.super }} - Настройки{% endblock %}
+
+{% block navigation %}
+{% include 'user/inc/_profile_navigation.html' %}
+{% endblock %}
+
+
+{% block content %}
+<div>
+    <p class="d-block text-center">
+        Для изменения пароля перейдите <a href="{% url 'user:pass_change' %}">по ссылке</a>
+    </p>
+</div>
+<div class="container d-flex justify-content-center">
+    <div class="FORMA">
+        <form method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+            <div class=" text-center">
+                <button type="submit" class="btn btn-outline-primary CART_BUTTON btn-block">Сохранить</button>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+{% endblock %}

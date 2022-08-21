@@ -1,0 +1,66 @@
+{% load static %}
+
+
+<div class="container">
+    <div class="row SPEC_OFF_CONTAINER">
+        <div class="py-3">
+            <div>
+                <a href="{% url 'store:by_special' %}" class="TEXT_YEL">
+                    <p class="mb-0 SPEC_OFF_TITLE"> {{ title }}</p>
+                </a>
+            </div>
+        </div>
+        <div class="px-5 pb-5">
+            <div class="col-md-12">
+                <div class="row row-cols-1 row-cols-md-5 g-3">
+                    {% for item in products %}
+                    <div class="col">
+                        <div class="card h-100 PRODUCT_CARD">
+                            <div>
+                                <a href="{{ item.get_absolute_url }}">
+                                    <img src="{{ item.photo.url }}" class="card-img-top" alt="...">
+                                </a>
+                            </div>
+                            <div class="card-body p-1 PROD_CARD">
+                        <div class="row">
+                            <div class="col-8 px-0 ml-1">
+                                <span class="card-text">
+                            <a href="{{ item.producer.get_absolute_url }}">
+                                {{ item.producer }}</a></span>
+                                <br>
+                                <h5 class="card-title mb-0 PROD_CARD_TITLE">
+                                    {{ item.name }}</h5>
+                                <div>
+                                    <h6 class="PROD_CARD_PRICE">
+                                        &#8381 {{ item.price }}
+                                        {% if item.sale %}
+                                        <del class="PROD_CARD_OLD_PRICE">
+                                            {{ item.old_price }}
+                                        </del>
+                                        {% endif %}
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="col-2 p-0 align-middle">
+                                <h5></h5>
+                                <button class="btn btn-outline-primary CART_BUTTON p-2 rounded-circle"
+                                        id="add_to_cart"
+                                        data-index="{{ item.id }}" value="{{ item.id }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                         fill="currentColor" class="bi bi-basket3 " viewBox="0 0 16 16">
+                                        <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM3.394 15l-1.48-6h-.97l1.525 6.426a.75.75 0 0 0 .729.574h9.606a.75.75 0 0 0 .73-.574L15.056 9h-.972l-1.479 6h-9.21z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <span> Try something else, please! </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
