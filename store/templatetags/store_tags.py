@@ -1,11 +1,13 @@
-from django import template
+# from django import template
+from django.template import Library
 
 from store.models import Category, Producer, Product, StoreInfo
 from blog.models import Post
 from django.db.models import Count, F
 from django.core.cache import cache
 
-register = template.Library()
+# register = template.Library()
+register = Library()
 
 
 # cache
@@ -50,7 +52,7 @@ def show_blog_posts():
     posts = cache.get_or_set('posts_index',
                              Post.objects.all()[:3].select_related('category'), 20)
     context = {'posts': posts,
-               'title': 'Check out latest posts!!!'}
+               'title': 'Посмотрите последние новости!'}
     return context
 
 # @register.inclusion_tag('store/show_producers.html')
